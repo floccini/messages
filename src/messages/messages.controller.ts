@@ -35,9 +35,11 @@ export class MessagesController {
   }
 
   @Put(':id')
-  update(@Param() params, @Body() message: Message) {
+  update(@Param() params, @Body() messageDto: MessageDto) {
     {
-      return this.messagesService.update(+params.id, message);
+      return this.messagesService.update(+params.id, messageDto).catch((e) => {
+        throw new NotFoundException(e.message);
+      });
     }
   }
 
