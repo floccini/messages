@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   Controller,
   Get,
@@ -6,6 +7,7 @@ import {
   Body,
   Put,
   Delete,
+  NotFoundException,
 } from '@nestjs/common';
 import { MessagesService } from './messages.service';
 import { Message } from './Message';
@@ -20,7 +22,9 @@ export class MessagesController {
 
   @Get(':id')
   findById(@Param() params) {
-    return this.messagesService.findById(+params.id);
+    return this.messagesService.findById(+params.id).catch((e) => {
+      throw new NotFoundException(e.message);
+    });
   }
 
   @Post('')
