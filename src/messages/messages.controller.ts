@@ -12,7 +12,6 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { MessagesService } from './messages.service';
-import { Message } from './Message';
 
 @Controller('messages')
 export class MessagesController {
@@ -45,6 +44,8 @@ export class MessagesController {
 
   @Delete(':id')
   delete(@Param() params) {
-    return this.messagesService.delete(+params.id);
+    return this.messagesService.delete(+params.id).catch((e) => {
+      throw new NotFoundException(e.message);
+    });
   }
 }
