@@ -1,4 +1,6 @@
 /* eslint-disable prettier/prettier */
+import { MessageDto } from './MessageDto';
+
 import {
   Controller,
   Get,
@@ -28,8 +30,8 @@ export class MessagesController {
   }
 
   @Post('')
-  create(@Body() message: Message) {
-    return this.messagesService.create(message);
+  create(@Body() messageDto: MessageDto) {
+    return this.messagesService.create(messageDto);
   }
 
   @Put(':id')
